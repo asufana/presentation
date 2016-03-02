@@ -1,0 +1,17 @@
+
+/target;
+
+# idea stuff
+.idea
+*.iml
+*.ipr
+*.iws
+
+# eclipse stuff
+.classpath
+.project
+.settings
+
+# misc
+.DS_Store
+
