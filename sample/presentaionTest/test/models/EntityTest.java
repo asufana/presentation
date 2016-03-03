@@ -11,7 +11,6 @@ public class EntityTest extends UnitTest {
     @Test
     public void test() {
         final Entity entity = new Entity(1, "hoge");
-        assertThat(entity.toHtml(), is("html!!!"));
+        assertThat(entity.toHtml(), is("empId,empName"));
     }
-    
 }
