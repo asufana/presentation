@@ -1,5 +1,8 @@
 package com.github.asufana.presentation.sample.vo;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class EmpId extends AbstractValueObject {
     
     private final Integer value;

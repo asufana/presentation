@@ -1,5 +1,8 @@
 package com.github.asufana.presentation.sample.vo;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class EmpName extends AbstractValueObject {
     
     private final String value;

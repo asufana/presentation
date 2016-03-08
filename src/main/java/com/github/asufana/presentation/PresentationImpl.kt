@@ -7,7 +7,7 @@ class PresentationImpl {
         fun toHtml(obj: Any): String {
             val fields = obj.javaClass.declaredFields
             val fieldsStr = fields
-                    .map { field -> field.name }
+                    .map { it.name }
                     .joinToString(",")
             return fieldsStr
         }

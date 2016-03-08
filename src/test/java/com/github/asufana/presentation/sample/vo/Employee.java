@@ -1,5 +1,8 @@
 package com.github.asufana.presentation.sample.vo;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Employee {
     
     private final EmpId empId;
