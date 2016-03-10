@@ -9,9 +9,8 @@ class PresentationImplTest {
 
     @Test
     fun test() {
-        val obj = SampleObject(Employee(1, "hana"));
-        val foo = PresentationImpl.toHtml(obj)
-        assertEquals("employee", foo)
+        val foo = PresentationImpl.toHtml(SampleObject.SAMPLE)
+        assertEquals("SAMPLE,employee", foo)
     }
 
 }

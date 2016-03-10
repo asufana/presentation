@@ -121,7 +121,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>3.3.2</version>
-      <scope>test</scope>
     </dependency>
     <!-- Tools -->
     <dependency>

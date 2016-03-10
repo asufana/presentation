@@ -14,5 +14,9 @@ public class EmpId extends AbstractValueObject {
     public Integer value() {
         return value;
     }
-    
+
+    public String toString(){
+        return value.toString();
+    }
+
 }

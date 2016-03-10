@@ -9,8 +9,7 @@ class FieldsFactoryTest {
 
     @Test
     fun testCreate() {
-        val obj = SampleObject(Employee(1, "hana"));
-        val html = FieldsFactory.create(obj)
+        val html = FieldsFactory.create(SampleObject.SAMPLE)
         assertEquals("hoge", html)
     }
 

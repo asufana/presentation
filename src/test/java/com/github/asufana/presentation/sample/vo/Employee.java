@@ -7,6 +7,7 @@ public class Employee {
     
     private final EmpId empId;
     private final EmpName empName;
+    private DeptName deptName;
     
     public Employee(Integer empId, String empName) {
         this(new EmpId(empId), new EmpName(empName));
@@ -24,4 +25,5 @@ public class Employee {
     public EmpName empName() {
         return empName;
     }
+
 }
