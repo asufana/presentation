@@ -7,13 +7,13 @@ public class Employee {
     
     private final EmpId empId;
     private final EmpName empName;
-    private DeptName deptName;
+    private final DeptName deptName = null;
     
-    public Employee(Integer empId, String empName) {
-        this(new EmpId(empId), new EmpName(empName));
+    public Employee(Integer empId, String lastName, String firstName) {
+        this(new EmpId(empId), new EmpName(lastName, firstName));
     }
     
-    Employee(EmpId empId, EmpName empName) {
+    public Employee(EmpId empId, EmpName empName) {
         this.empId = empId;
         this.empName = empName;
     }

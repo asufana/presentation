@@ -4,13 +4,13 @@ import com.github.asufana.presentationjava.annotations.View;
 
 import javax.persistence.Embeddable;
 
-@View(name="部署名")
+@View(name="姓")
 @Embeddable
-public class DeptName extends AbstractValueObject {
+public class LastName extends AbstractValueObject {
 
     private final String value;
 
-    public DeptName(String value) {
+    public LastName(String value) {
         this.value = value;
     }
     

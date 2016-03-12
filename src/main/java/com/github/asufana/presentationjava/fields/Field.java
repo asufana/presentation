@@ -17,43 +17,43 @@ public class Field {
     /**
      * フィールド階層一覧
      */
-    //ex.employee.name.value
+    //ex) employee.name.value
     protected final List<java.lang.reflect.Field> parentFields;
 
     /**
      * フィールド
      */
-    //ex.value
+    //ex) value
     protected final java.lang.reflect.Field field; /* nullable */
 
     /**
      * フィールド保持インスタンス
      */
-    //ex.name
+    //ex) name
     protected final Object instance; /* nullable */
 
     /**
      * 自インスタンス名
      */
-    //ex. value
-    protected final String instanceName;
+    //ex) value
+    //protected final String instanceName;
 
     /**
      * フルインスタンス名
      */
-    //ex.employee.name.value
+    //ex) employee.name.value
     protected final String instanceFullName;
 
     /**
      * フィールド表示名
      */
-    //ex.employee.name.value もしくは @Value指示名
+    //ex) employee.name.value もしくは @Value指示名
     protected final String displayName;
 
     /**
      * フィールド値
      */
-    //ex. taro
+    //ex) taro
     protected final Object value;
 
     //コンストラクタ
@@ -64,27 +64,29 @@ public class Field {
         this.field = field;
         this.instance = instance;
 
-        instanceName = ofNullable(field).map(f -> f.getName()).orElse(null);
+        String instanceName = ofNullable(field).map(f -> f.getName())
+                .orElse(null);
         instanceFullName = createFullInstanceNames(parentFields, instanceName);
-        displayName = findAnnotation().map(ViewAnnotation::name).orElse(instanceFullName);
+        displayName = findAnnotation().map(ViewAnnotation::name)
+                .orElse(instanceFullName);
         value = getValue(field, instance);
     }
 
-    protected List<java.lang.reflect.Field> parentFields(){
-        return parentFields;
-    }
+//    protected List<java.lang.reflect.Field> parentFields(){
+//        return parentFields;
+//    }
 
-    protected Optional<java.lang.reflect.Field> field(){
+    protected Optional<java.lang.reflect.Field> field() {
         return ofNullable(field);
     }
 
-    protected Optional<Object> instance(){
+    protected Optional<Object> instance() {
         return ofNullable(instance);
     }
 
-    public String instanceName() {
-        return instanceName;
-    }
+//    public String instanceName() {
+//        return instanceName;
+//    }
 
     public String instanceFullName() {
         return instanceFullName;
@@ -106,10 +108,16 @@ public class Field {
      * アノテーション取得
      */
     protected Optional<ViewAnnotation> findAnnotation() {
+        //指定フィールドに付加されたアノテーション
         if (findFieldAnnotation().isPresent()) {
             return findFieldAnnotation();
         }
-        return findInstanceAnnotation();
+        //なければ、指定フィールドを保持するインスタンスクラスに付加されたアノテーション
+        if (findInstanceAnnotation().isPresent()) {
+            return findInstanceAnnotation();
+        }
+        //なければ、親フィールドのクラスに付加されたアノテーション
+        return findParentFieldAnnotation();
     }
 
     /**
@@ -130,16 +138,31 @@ public class Field {
     }
 
     /**
+     * 親フィールド・アノテーション取得
+     */
+    protected Optional<ViewAnnotation> findParentFieldAnnotation() {
+        if(parentFields.isEmpty()){
+            return Optional.empty();
+        }
+        java.lang.reflect.Field parentField = parentFields.get(parentFields.size() - 1);
+        return ofNullable(parentField).map(field -> field.getType().getAnnotation(View.class))
+                .map(annotation -> new ViewAnnotation(annotation));
+    }
+
+    /**
      * インスタンス値の取得
      */
-    protected String getValue(final java.lang.reflect.Field field, final Object instance) {
-        return ofNullable(getValueFromInstance(instance)).orElse(getValueFromField(field, instance));
+    protected String getValue(final java.lang.reflect.Field field,
+                              final Object instance) {
+        return ofNullable(getValueFromInstance(instance)).orElse(getValueFromField(field,
+                instance));
     }
 
     /**
      * インスタンス値をフィールドから取得する
      */
-    protected String getValueFromField(final java.lang.reflect.Field field, final Object instance) {
+    protected String getValueFromField(final java.lang.reflect.Field field,
+                                       final Object instance) {
         if (field == null || instance == null) {
             return null;
         }
@@ -162,7 +185,8 @@ public class Field {
         }
 
         //取得メソッド
-        final String methodName = findAnnotation().flatMap(a -> a.valueMethod()).orElse("toString");
+        final String methodName = findAnnotation().flatMap(a -> a.valueMethod())
+                .orElse("toString");
 
         try {
             final Method method = instance.getClass().getMethod(methodName);

@@ -1,16 +1,16 @@
 package com.github.asufana.presentation.sample.vo;
 
-import com.github.asufana.presentationjava.annotations.View;
-
 import javax.persistence.Embeddable;
 
-@View(name="部署名")
+import com.github.asufana.presentationjava.annotations.View;
+
+@View(name="名")
 @Embeddable
-public class DeptName extends AbstractValueObject {
+public class FirstName extends AbstractValueObject {
 
     private final String value;
 
-    public DeptName(String value) {
+    public FirstName(String value) {
         this.value = value;
     }
     

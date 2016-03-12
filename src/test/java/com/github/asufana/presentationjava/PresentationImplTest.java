@@ -1,7 +1,6 @@
 package com.github.asufana.presentationjava;
 
 import com.github.asufana.presentation.sample.SampleObject;
-import com.github.asufana.presentationjava.PresentationImpl;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
@@ -21,7 +20,10 @@ public class PresentationImplTest {
     @Test
     //フィールド一覧取得
     public void testToHtmlWithLayout() {
-        String layout = "employee.empId," + "employee.empName," + "employee.deptName";
+        String layout = "employee.empId,"
+                + "employee.empName.lastName,"
+                + "employee.empName.firstName,"
+                + "employee.deptName";
         String html = PresentationImpl.toHtml(SampleObject.SAMPLE, layout);
         assertThat(html, CoreMatchers.is(CoreMatchers.notNullValue()));
 
