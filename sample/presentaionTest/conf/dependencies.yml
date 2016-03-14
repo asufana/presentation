@@ -2,5 +2,11 @@
 
 require:
     - play
-    - org.jetbrains.kotlin -> kotlin-stdlib 1.0.0
+    - com.github.asufana -> presentation [1.0,)
 
+repositories:
+    - github:
+        type:   iBiblio
+        root:   https://raw.github.com/asufana/presentation/mvn-repo/
+        contains:
+            - com.github.asufana -> *

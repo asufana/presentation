@@ -7,10 +7,10 @@ import org.junit.*;
 
 import play.test.*;
 
-public class EntityTest extends UnitTest {
+public class SampleObjectTest extends UnitTest {
     
     @Test
-    public void test() {
+    public void testToHtml() {
         final SampleObject object = new SampleObject(new Employee(1, "Hanafusa", "Makoto"));
         final String html = object.toHtml();
         
