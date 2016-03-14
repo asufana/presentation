@@ -1,4 +1,4 @@
-package com.github.asufana.presentation.annotattions;
+package com.github.asufana.presentation.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

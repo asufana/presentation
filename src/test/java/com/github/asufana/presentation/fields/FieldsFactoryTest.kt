@@ -1,6 +1,6 @@
 package com.github.asufana.presentation.fields
 
-import com.github.asufana.presentation.sample.SampleObject
+import com.github.asufana.sample.SampleObject
 import org.junit.Assert.*
 import org.junit.Test
 

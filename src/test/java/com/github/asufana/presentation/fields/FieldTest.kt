@@ -1,7 +1,6 @@
 package com.github.asufana.presentation.fields
 
-import com.github.asufana.presentation.sample.SampleObject
-import org.hamcrest.CoreMatchers
+import com.github.asufana.sample.SampleObject
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -14,4 +13,5 @@ class FieldTest {
                 SampleObject.SAMPLE)
         assertEquals(field != null, true)
     }
+
 }

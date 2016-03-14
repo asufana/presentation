@@ -1,6 +1,7 @@
 package models;
 
 import static org.hamcrest.CoreMatchers.*;
+import models.vo.*;
 
 import org.junit.*;
 
@@ -10,7 +11,10 @@ public class EntityTest extends UnitTest {
     
     @Test
     public void test() {
-        final Entity entity = new Entity(1, "hoge");
-        assertThat(entity.toHtml(), is("empId,empName"));
+        final SampleObject object = new SampleObject(new Employee(1, "Hanafusa", "Makoto"));
+        final String html = object.toHtml();
+        
+        assertThat(html.length() > 0, is(true));
+        System.out.println(html);
     }
 }

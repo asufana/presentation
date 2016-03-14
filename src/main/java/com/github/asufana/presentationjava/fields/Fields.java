@@ -1,14 +1,16 @@
 package com.github.asufana.presentationjava.fields;
 
-import static java.util.Optional.*;
-import static java.util.stream.Collectors.*;
-
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
-
 import com.github.asufana.presentationjava.utils.StringBuilder;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Stream;
+
+import static java.util.Optional.of;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 /** フィールドリスト */
 public class Fields extends AbstractCollection<Fields, Field> {

@@ -2,6 +2,7 @@ package com.github.asufana.presentation.fields
 
 import java.lang.reflect.Modifier
 
+/** フィールド一覧作成ファクトリ */
 class FieldsFactory {
 
     companion object {

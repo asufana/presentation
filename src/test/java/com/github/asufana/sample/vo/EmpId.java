@@ -1,6 +1,6 @@
-package com.github.asufana.presentation.sample.vo;
+package com.github.asufana.sample.vo;
 
-import com.github.asufana.presentationjava.annotations.View;
+import com.github.asufana.presentation.annotations.View;
 
 import javax.persistence.Embeddable;
 

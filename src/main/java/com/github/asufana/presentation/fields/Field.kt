@@ -1,11 +1,11 @@
 package com.github.asufana.presentation.fields
 
-import com.github.asufana.presentation.annotattions.View
-import com.github.asufana.presentation.annotattions.ViewAnnotation
+import com.github.asufana.presentation.annotations.View
+import com.github.asufana.presentation.annotations.ViewAnnotation
 
 
 /** java.lang.reflect.Field保持クラス */
-data class Field(
+open class Field(
 
         /** フィールド階層一覧 */
         //ex) employee.name.value
@@ -13,7 +13,7 @@ data class Field(
 
         /** フィールド */
         //ex) value
-        val field: java.lang.reflect.Field,
+        val field: java.lang.reflect.Field?,
 
         /** フィールド保持インスタンス */
         //ex) name
@@ -21,30 +21,29 @@ data class Field(
 
     /** 自インスタンス名 */
     //ex) value
-    val instanceName: String = field.name
+    val instanceName: String? = field?.name
 
     /** フルインスタンス名 */
     //ex) employee.name.value
-    val instanceFullName: String = createFullInstanceName(parentFields, instanceName)
+    val instanceFullName: String? = createFullInstanceName(parentFields, instanceName)
 
     /** フィールド表示名 */
     //ex) employee.name.value もしくは @Value指示名
-    val displayName: String = findAnnotation()?.name ?: instanceFullName
+    val displayName: String? = findAnnotation()?.name ?: instanceFullName
 
     /** フィールド値 */
     //ex) taro
     val value: String? = getValue(field, instance)
 
     /** フルインスタンス名文字列生成 */
-    protected fun createFullInstanceName(parentFields: List<java.lang
-    .reflect.Field>, instanceName: String): String {
+    protected fun createFullInstanceName(
+            parentFields: List<java.lang.reflect.Field>, instanceName: String?): String? {
         if (parentFields.isEmpty()) return instanceName
 
         //デリミタ
         val DELIMITER = "."
         //親インスタンス名
-        val parentInstanceNamesString = parentFields.map { it.name }
-                .joinToString { DELIMITER }
+        val parentInstanceNamesString = parentFields.map { it.name }.joinToString(DELIMITER)
 
         return if (instanceName != null)
             parentInstanceNamesString + DELIMITER + instanceName
@@ -61,7 +60,7 @@ data class Field(
 
     /** フィールド・アノテーション取得 */
     protected fun findFieldAnnotation(): ViewAnnotation? {
-        return field.getAnnotation(View::class.java)
+        return field?.getAnnotation(View::class.java)
                 ?.let { ViewAnnotation(it) }
     }
 
@@ -75,19 +74,19 @@ data class Field(
     /** 親フィールド・アノテーション取得 */
     protected fun findParentFieldAnnotation(): ViewAnnotation? {
         if (parentFields.isEmpty()) return null;
-        val parentField = parentFields.get(parentFields.size - 1)
-        return parentField?.type.getAnnotation(View::class.java)
+        val parentField = parentFields[parentFields.size - 1]
+        return parentField.type.getAnnotation(View::class.java)
                 ?.let { ViewAnnotation(it) }
     }
 
     /** インスタンス値の取得 */
-    protected fun getValue(field: java.lang.reflect.Field, instance: Any?):
+    protected fun getValue(field: java.lang.reflect.Field?, instance: Any?):
             String? {
         return getValueFromInstance(instance) ?: getValueFromField(field, instance)
     }
 
     /** インスタンス値をフィールドから取得 */
-    protected fun getValueFromField(field: java.lang.reflect.Field, instance:
+    protected fun getValueFromField(field: java.lang.reflect.Field?, instance:
     Any?): String? {
         if (field == null || instance == null) return null
 
@@ -114,6 +113,28 @@ data class Field(
         } catch(e: Exception) {
             return instance.toString()
         }
+    }
+
+    /** ヘッダHTML文字列 */
+    open fun toHeaderHtml(): String {
+        val thTag = toThTagHtml();
+        return "$thTag$displayName</th>"
+    }
+
+    /** THタグ文字列 */
+    protected fun toThTagHtml(): String {
+        return findAnnotation()?.let { it.thTagString() } ?: "<th>"
+    }
+
+    /** ボディHTML文字列 */
+    open fun toBodyHtml(): String {
+        val tdTag = toTdTagHtml()
+        return "$tdTag$value</td>"
+    }
+
+    /** TDタグ文字列 */
+    protected fun toTdTagHtml(): String {
+        return findAnnotation()?.let { it.tdTagString() } ?: "<td>";
     }
 
 }

@@ -1,6 +1,6 @@
-package com.github.asufana.presentation.sample.vo;
+package models.vo;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 @Embeddable
 public class Employee {
@@ -9,11 +9,11 @@ public class Employee {
     private final EmpName empName;
     private final DeptName deptName = null;
     
-    public Employee(Integer empId, String lastName, String firstName) {
+    public Employee(final Integer empId, final String lastName, final String firstName) {
         this(new EmpId(empId), new EmpName(lastName, firstName));
     }
     
-    public Employee(EmpId empId, EmpName empName) {
+    public Employee(final EmpId empId, final EmpName empName) {
         this.empId = empId;
         this.empName = empName;
     }
@@ -25,5 +25,5 @@ public class Employee {
     public EmpName empName() {
         return empName;
     }
-
+    
 }

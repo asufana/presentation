@@ -1,16 +1,29 @@
 package com.github.asufana.presentation
 
-import com.github.asufana.presentation.sample.SampleObject
-import com.github.asufana.presentation.sample.vo.Employee
+import com.github.asufana.sample.SampleObject
 import org.junit.Assert.*
 import org.junit.Test
 
 class PresentationImplTest {
 
+    //HTML変換（デフォルトレイアウト）
     @Test
-    fun test() {
-        val foo = PresentationImpl.toHtml(SampleObject.SAMPLE)
-        assertEquals("SAMPLE,employee", foo)
+    fun testToHtml() {
+        val html = PresentationImpl.toHtml(SampleObject.SAMPLE)
+        assertEquals(true, html.length > 0)
+
+        println(html)
+    }
+
+    //HTML変換
+    @Test
+    fun testToHtmlWithLayout() {
+        val layout = "employee.empId, employee.empName.lastName\n employee.empName.firstName, employee.deptName"
+
+        val html = PresentationImpl.toHtml(SampleObject.SAMPLE, layout)
+        assertEquals(true, html.length > 0)
+
+        println(html)
     }
 
 }

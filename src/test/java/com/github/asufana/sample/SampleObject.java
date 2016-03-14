@@ -1,6 +1,6 @@
-package com.github.asufana.presentation.sample;
+package com.github.asufana.sample;
 
-import com.github.asufana.presentation.sample.vo.Employee;
+import com.github.asufana.sample.vo.Employee;
 
 public class SampleObject {
 
