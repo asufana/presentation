@@ -1,0 +1,30 @@
+*{<meta charset="utf-8">}*
+#{set title:'Presentation Test' /}
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <link rel="stylesheet" media="screen,print" href="/public/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" media="screen,print" href="/public/stylesheets/main.css">
+    <script src="/public/javascripts/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div id="pnl_main">
+      <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container-fluid">
+            <a class="brand" href="/">#{get 'title' /}</a>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="row-fluid">
+        <div class="span12">
+        #{doLayout /}
+        </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

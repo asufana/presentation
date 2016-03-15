@@ -1,4 +1,4 @@
-package models.vo;
+package models.vo.employee;
 
 import javax.persistence.*;
 
@@ -7,7 +7,6 @@ public class Employee {
     
     private final EmpId empId;
     private final EmpName empName;
-    private final DeptName deptName = null;
     
     public Employee(final Integer empId, final String lastName, final String firstName) {
         this(new EmpId(empId), new EmpName(lastName, firstName));

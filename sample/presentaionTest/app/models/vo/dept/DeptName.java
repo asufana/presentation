@@ -1,6 +1,8 @@
-package models.vo;
+package models.vo.dept;
 
 import javax.persistence.*;
+
+import models.vo.*;
 
 import com.github.asufana.presentation.annotations.*;
 

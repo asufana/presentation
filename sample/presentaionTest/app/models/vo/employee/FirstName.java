@@ -1,16 +1,18 @@
-package models.vo;
+package models.vo.employee;
 
 import javax.persistence.*;
 
+import models.vo.*;
+
 import com.github.asufana.presentation.annotations.*;
 
-@View(name = "姓")
+@View(name = "名")
 @Embeddable
-public class LastName extends AbstractValueObject {
+public class FirstName extends AbstractValueObject {
     
     private final String value;
     
-    public LastName(final String value) {
+    public FirstName(final String value) {
         this.value = value;
     }
     

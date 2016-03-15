@@ -16,7 +16,7 @@ public @interface View {
     int thWidth() default 0;
     
     //THタグ右寄せ
-    boolean thRight() default false;
+    boolean thRight() default true;
     
     //TDタグClassアトリビュート値
     String tdClass() default "";
