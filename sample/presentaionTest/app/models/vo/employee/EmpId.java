@@ -6,7 +6,7 @@ import models.vo.*;
 
 import com.github.asufana.presentation.annotations.*;
 
-@View(name = "社員番号", thWidth = 15)
+@View(name = "社員番号", thWidth = 15, valueMethod = "toHtml")
 @Embeddable
 public class EmpId extends AbstractValueObject {
     
@@ -16,8 +16,8 @@ public class EmpId extends AbstractValueObject {
         this.value = value;
     }
     
-    public Integer value() {
-        return value;
+    public String toHtml() {
+        return String.format("<a href=\"#\">%s</a>", toString());
     }
     
     @Override

@@ -28,6 +28,17 @@ class PresentationImpl {
             return fields.toDescTableHtml(layout)
         }
 
+        /** HTML変換（例外としない） */
+        @JvmStatic
+        fun toHtmlWithtoutException(targetInstance: Any, layout: String): String {
+
+            //フィールド一覧
+            val fields = FieldsFactory.create(targetInstance)
+
+            //HTML生成
+            return fields.toDescTableHtmlWithoutException(layout)
+        }
+
     }
 
 }

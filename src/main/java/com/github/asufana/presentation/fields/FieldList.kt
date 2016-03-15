@@ -1,39 +1,63 @@
 package com.github.asufana.presentation.fields
 
+import com.github.asufana.presentation.exceptions.PresentationException
+
 
 data class Fields(val fields: List<Field>) {
 
     /** 詳細画面向けHTML文字列生成 */
     fun toDescTableHtml(): String {
         val layout = descTableDefaultColumnLayout()
-        if (layout.isEmpty()) throw RuntimeException()
+        if (layout.isEmpty()) throw PresentationException("No default layout.")
 
+        //テーブルHTML
         val tableHtml = toDescTableHtml(layout)
-        val html = """
+        //HTML化
+        return toHtml(layout, tableHtml)
+    }
+
+    /** HTML生成 */
+    protected fun toHtml(layout: String, tableHtml: String): String {
+        return """
 <!-- columnsLayout -->
 <!--
 $layout
 -->
 $tableHtml
 """
-        return html
     }
 
     /** 詳細画面向けHTML文字列生成 */
     fun toDescTableHtml(columnsLayout: String): String {
+        //レイアウト不備は例外にする
+        val enableException = true
         //ボディ部
-        val body = toDescBodyString(columnsLayout)
-        //テーブルHTML
-        val html = """
+        val body = toDescBodyString(columnsLayout, enableException)
+        //テーブルHTML化
+        return toTableHtml(body)
+    }
+
+    /** 詳細画面向けHTML文字列生成（レイアウト不備時に例外としない） */
+    fun toDescTableHtmlWithoutException(columnsLayout: String): String {
+        //レイアウト不備は例外にしない
+        val enableException = false
+        //ボディ部
+        val body = toDescBodyString(columnsLayout, enableException)
+        //テーブルHTML化
+        return toTableHtml(body)
+    }
+
+    /** テーブルHTML生成 */
+    protected fun toTableHtml(bodyHtml: String): String {
+        return """
 <table class="table table-bordered table-condensed">
-$body
+$bodyHtml
 </table>
 """
-        return html
     }
 
     /** 詳細画面ボディ */
-    protected fun toDescBodyString(columnsLayout: String): String {
+    protected fun toDescBodyString(columnsLayout: String, enableException: Boolean): String {
         //インデント空白
         val indent = "  "
 
@@ -44,7 +68,7 @@ $body
             instanceNames.split(",")
                     .map { it.trim() }
                     //フィールドが見つからない場合にはNullオブジェクトを渡す
-                    .map { instanceName -> findField(instanceName) ?: NullField(instanceName) }
+                    .map { instanceName -> findField(instanceName, enableException) ?: NullField(instanceName) }
                     .map { field -> field.toHeaderHtml() + field.toBodyHtml() }
                     .joinToString("\n$indent$indent")
         }
@@ -67,7 +91,7 @@ $body
     }
 
     /** インスタンス名からフィールドの取得 */
-    protected fun findField(instanceName: String): Field? {
+    protected fun findField(instanceName: String, enableException: Boolean): Field? {
         val s1 = toClean(instanceName)
         val matchedFields = fields
                 .filter {
@@ -79,6 +103,9 @@ $body
                 }
 
         //前方一致で抽出した結果、フィールドが一意に特定されればそれを返却する
+        if (matchedFields.size != 1 && enableException)
+            throw PresentationException("Unknown instance name: $instanceName")
+
         return if (matchedFields.size == 1) matchedFields[0] else null
     }
 

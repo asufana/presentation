@@ -13,10 +13,6 @@ public class EmpId extends AbstractValueObject {
     public EmpId(Integer value) {
         this.value = value;
     }
-    
-    public Integer value() {
-        return value;
-    }
 
     public String toString(){
         return value.toString();

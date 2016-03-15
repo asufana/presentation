@@ -7,7 +7,7 @@ import com.github.asufana.presentation.*;
 
 public class SomeEntity implements Presentation {
     
-    public static final SomeEntity SAMPLE = new SomeEntity(new Employee(1, "Hanafusa", "Makoto"),
+    public static final SomeEntity SAMPLE = new SomeEntity(new Employee(999, "Hanafusa", "Makoto"),
                                                            new Dept(100, "営業"));
     public final Employee employee;
     public final Dept dept;

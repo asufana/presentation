@@ -32,13 +32,10 @@ class FieldsFactory {
                             val nextParentFields = parentFields.plus(field)
                             val nextClass = field.type
                             val nextInstance = getValue(targetInstance, field)
-
-                            //println("++. $field.")
                             discovery(nextParentFields, nextClass, nextInstance, discoveredFields)
                         }
                         //子要素がなければ
                         else {
-                            //println("--. $field.")
                             val f = Field(parentFields, field, targetInstance)
                             discoveredFields.add(f)
                         }
